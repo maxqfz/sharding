@@ -32,6 +32,6 @@ class PaymentConverter(
     private fun findCustomer(id: Long): CustomerEntity {
         return customerRepository.findById(id)
                 .orElseThrow { HttpClientErrorException(HttpStatus.BAD_REQUEST) }
-        // for fail tolerance we can create user .orElse(CustomerEntity("Unknown"))
+        // for fail tolerance we can create new unknown user .orElse(CustomerEntity("Unknown"))
     }
 }

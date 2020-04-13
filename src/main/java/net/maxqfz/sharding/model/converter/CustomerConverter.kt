@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class CustomerConverter {
     fun convertDtoToEntity(dto: CustomerDto): CustomerEntity {
         return CustomerEntity(
-                name = dto.name ?: "Unknown"
+                name = dto.name
         )
     }
 

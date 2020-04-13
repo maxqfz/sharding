@@ -1,5 +1,8 @@
 package net.maxqfz.sharding.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import net.maxqfz.sharding.model.dto.PaymentDto;
 import net.maxqfz.sharding.service.PaymentService;
 import org.springframework.http.HttpStatus;
@@ -13,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
+@Api("Управление платежами")
 @RestController
 @RequestMapping(value = "/payments", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PaymentController {
@@ -26,23 +29,27 @@ public class PaymentController {
     }
 
     @GetMapping
-    public List<PaymentDto> getAllByPayerId(@RequestParam("payer_id") long payerId) {
+    @ApiOperation("Получить все платежи по ID плательщика")
+    public List<PaymentDto> getAllByPayerId(@ApiParam("Идентификатор плательщика") @RequestParam long payerId) {
         return paymentService.getPaymentsByPayerId(payerId);
     }
 
     @GetMapping("/{id}")
-    public PaymentDto getPayment(@PathVariable long id) {
+    @ApiOperation("Получить платеж по его идентификатору")
+    public PaymentDto getPayment(@ApiParam("Идентификатор платежа") @PathVariable long id) {
         return paymentService.getPaymentById(id);
     }
 
     @PostMapping
-    public PaymentDto createPayment(@RequestBody @Valid PaymentDto payment) {
+    @ApiOperation("Создать платеж")
+    public PaymentDto createPayment(@ApiParam("Тело запроса") @RequestBody PaymentDto payment) {
         return paymentService.createPayment(payment);
     }
 
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.CREATED)
-    public void uploadPayments(@RequestBody List<PaymentDto> payments) {
+    @ApiOperation("Создать несколько платежей")
+    public void uploadPayments(@ApiParam("Тело запроса") @RequestBody List<PaymentDto> payments) {
         paymentService.uploadPayments(payments);
     }
 }
