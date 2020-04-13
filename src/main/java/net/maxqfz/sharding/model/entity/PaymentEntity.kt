@@ -1,6 +1,5 @@
 package net.maxqfz.sharding.model.entity
 
-import org.hibernate.annotations.Cascade
 import org.hibernate.annotations.GenericGenerator
 import java.math.BigDecimal
 import javax.persistence.CascadeType

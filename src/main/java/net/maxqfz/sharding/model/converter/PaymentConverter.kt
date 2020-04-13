@@ -1,6 +1,6 @@
 package net.maxqfz.sharding.model.converter
 
-import net.maxqfz.sharding.model.dto.PaymentDto
+import net.maxqfz.sharding.model.dto.PaymentDTO
 import net.maxqfz.sharding.model.entity.CustomerEntity
 import net.maxqfz.sharding.model.entity.PaymentEntity
 import net.maxqfz.sharding.repository.CustomerRepository
@@ -12,16 +12,16 @@ import org.springframework.web.client.HttpClientErrorException
 class PaymentConverter(
         private val customerRepository: CustomerRepository
 ) {
-    fun convertDtoToEntity(dto: PaymentDto): PaymentEntity {
+    fun convertDtoToEntity(DTO: PaymentDTO): PaymentEntity {
         return PaymentEntity(
-                payer = findCustomer(dto.payerId),
-                payee = findCustomer(dto.payeeId),
-                sum = dto.sum
+                payer = findCustomer(DTO.payerId),
+                payee = findCustomer(DTO.payeeId),
+                sum = DTO.sum
         )
     }
 
-    fun convertEntityToDto(entity: PaymentEntity): PaymentDto {
-        return PaymentDto(
+    fun convertEntityToDto(entity: PaymentEntity): PaymentDTO {
+        return PaymentDTO(
                 id = entity.id,
                 payerId = entity.payer.id,
                 payeeId = entity.payee.id,

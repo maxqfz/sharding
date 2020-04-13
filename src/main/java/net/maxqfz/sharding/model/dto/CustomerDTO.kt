@@ -1,6 +1,6 @@
 package net.maxqfz.sharding.model.dto
 
-data class CustomerDto(
+data class CustomerDTO(
         /** Идентификатор пользователя */
         val id: Long? = null,
 

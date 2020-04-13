@@ -2,7 +2,7 @@ package net.maxqfz.sharding.model.dto
 
 import java.math.BigDecimal
 
-data class PaymentDto(
+data class PaymentDTO(
         /** Идентификатор платежа */
         val id: Long? = null,
 

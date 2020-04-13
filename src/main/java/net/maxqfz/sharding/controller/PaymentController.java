@@ -3,7 +3,7 @@ package net.maxqfz.sharding.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.maxqfz.sharding.model.dto.PaymentDto;
+import net.maxqfz.sharding.model.dto.PaymentDTO;
 import net.maxqfz.sharding.service.PaymentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,26 +30,26 @@ public class PaymentController {
 
     @GetMapping
     @ApiOperation("Получить все платежи по ID плательщика")
-    public List<PaymentDto> getAllByPayerId(@ApiParam("Идентификатор плательщика") @RequestParam long payerId) {
+    public List<PaymentDTO> getAllByPayerId(@ApiParam("Идентификатор плательщика") @RequestParam long payerId) {
         return paymentService.getPaymentsByPayerId(payerId);
     }
 
     @GetMapping("/{id}")
     @ApiOperation("Получить платеж по его идентификатору")
-    public PaymentDto getPayment(@ApiParam("Идентификатор платежа") @PathVariable long id) {
+    public PaymentDTO getPayment(@ApiParam("Идентификатор платежа") @PathVariable long id) {
         return paymentService.getPaymentById(id);
     }
 
     @PostMapping
     @ApiOperation("Создать платеж")
-    public PaymentDto createPayment(@ApiParam("Тело запроса") @RequestBody PaymentDto payment) {
+    public PaymentDTO createPayment(@ApiParam("Тело запроса") @RequestBody PaymentDTO payment) {
         return paymentService.createPayment(payment);
     }
 
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation("Создать несколько платежей")
-    public void uploadPayments(@ApiParam("Тело запроса") @RequestBody List<PaymentDto> payments) {
+    public void uploadPayments(@ApiParam("Тело запроса") @RequestBody List<PaymentDTO> payments) {
         paymentService.uploadPayments(payments);
     }
 }

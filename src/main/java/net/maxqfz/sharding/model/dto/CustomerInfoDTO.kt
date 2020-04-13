@@ -2,7 +2,7 @@ package net.maxqfz.sharding.model.dto
 
 import java.math.BigDecimal
 
-data class CustomerInfoDto(
+data class CustomerInfoDTO(
         /** Идентификатор пользователя */
         val id: Long,
 
