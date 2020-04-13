@@ -1,0 +1,40 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+sharding:
+  jdbc:
+    datasource:
+      names: shard0,shard1,shard2
+      shard0:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbc-url: jdbc:postgresql://${DB_HOST}/shard0
+        username: ${DB_USER}
+        password: ${DB_PASSWORD}
+      shard1:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbc-url: jdbc:postgresql://${DB_HOST}/shard1
+        username: ${DB_USER}
+        password: ${DB_PASSWORD}
+      shard2:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbc-url: jdbc:postgresql://${DB_HOST}/shard2
+        username: ${DB_USER}
+        password: ${DB_PASSWORD}
+    config:
+      sharding:
+        tables:
+          customer:
+            actual-data-nodes: shard$->{0..2}.customer
+            database-strategy:
+              inline:
+                algorithm-expression: shard$->{id % 3}
+                sharding-column: id
+          payment:
+            actual-data-nodes: shard$->{0..2}.payment
+            database-strategy:
+              inline:
+                algorithm-expression: shard$->{payer_id % 3}
+                sharding-column: payer_id
